@@ -42,7 +42,14 @@ typedef bool (*callback_t)(void);
 typedef void (*callable_t)(void);
 
 /* init_timer.c */
-extern uint32_t init_timer( uint8_t timer_num, uint32_t Prescaler, uint8_t MatchReg, uint8_t SRImatchReg, uint32_t TimerInterval );
+/**
+ * @brief intializes the timer and enables the interrupt
+ * 
+ * @param timer_num timer id
+ * @param Prescaler timer prescaler
+ * @return uint32_t return 0 if the timer was intialized, 1 if failed
+ */
+extern uint32_t init_timer( uint8_t timer_num, uint32_t Prescaler );
 
 extern void init_match_reg( uint8_t timer_num, uint8_t MatchReg, uint8_t SRImatchReg, uint32_t TimerInterval, bool add_TC);
 extern void init_match_reg_millis(uint8_t timer, uint8_t match_reg, uint8_t SRI_match_reg, uint32_t millis, bool add_TC);
