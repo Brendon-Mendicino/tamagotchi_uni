@@ -14,3 +14,4 @@
 .\sample.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\sample.o: tamagotchi/tamagotchi.h
 .\sample.o: tamagotchi/controller.h
+.\sample.o: RIT/RIT.h

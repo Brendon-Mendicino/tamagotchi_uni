@@ -487,7 +487,7 @@ void TouchPanel_Calibrate(void)
 #ifndef SIMULATOR
 	 DelayUS(1000 * 500);
 #else
-   DelayUS(100);
+   DelayUS(1000);
 #endif	
    DrawCross(DisplaySample[i].x,DisplaySample[i].y);
    do

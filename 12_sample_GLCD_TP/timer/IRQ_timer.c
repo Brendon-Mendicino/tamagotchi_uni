@@ -65,47 +65,47 @@ static inline void check_register(uint32_t *MR, uint8_t timer, uint8_t match)
 
 void TIMER0_IRQHandler (void)
 {
-	callback_t callback;
+	callable_t callable;
 	
 	/* Match register 0 interrupt service routine */
 	if (LPC_TIM0->IR & 01)
 	{
-		// Update the value of MR0
 		LPC_TIM0->MR0 += get_matchRegInitialValue(TIMER0, MATCH0);
-		
-		callback = get_callback(TIMER0, MATCH0);
-		// if the callback returns true, disable the mathRegister
-		if (callback != NULL && callback()) {
-			LPC_TIM0->MCR &= ~((CONTROL_INTERRUPT | CONTROL_RESET | CONTROL_STOP) << 0); 
+
+		if  ((callable = get_callable(TIMER0, MATCH0)) != NULL) {
+			callable();
 		}
+
+		// In case the callback exceded the time
+		LPC_TIM0->MR0 = (LPC_TIM0->MR0 < LPC_TIM0->TC - 20) ? LPC_TIM0->TC + 20 : LPC_TIM0->MR0;
 		
 		LPC_TIM0->IR = 1;			/* clear interrupt flag */
 	}
 		/* Match register 1 interrupt service routine */
 	else if(LPC_TIM0->IR & 02)
   {
-		// Update the value of MR1
 		LPC_TIM0->MR1 += get_matchRegInitialValue(TIMER0, MATCH1);
-		
-		callback = get_callback(TIMER0, MATCH1);
-		// if the callback returns true, disable the mathRegister
-		if (callback != NULL && callback()) {
-			LPC_TIM0->MCR &= ~((CONTROL_INTERRUPT | CONTROL_RESET | CONTROL_STOP) << 3); 
+
+		if ((callable = get_callable(TIMER0, MATCH1)) != NULL) {
+			callable();
 		}
+
+		// In case the callback exceded the time
+		LPC_TIM0->MR1 = (LPC_TIM0->MR1 < LPC_TIM0->TC - 20) ? LPC_TIM0->TC + 20 : LPC_TIM0->MR1;
 		
 		LPC_TIM0->IR =  2 ;			/* clear interrupt flag */	
 	}
 	/* Match register 2 interrupt service routine */
 	else if(LPC_TIM0->IR & 4)
   {
-		// Update the value of MR2
 		LPC_TIM0->MR2 += get_matchRegInitialValue(TIMER0, MATCH2);
-		
-		callback = get_callback(TIMER0, MATCH2);
-		// if the callback returns true, disable the mathRegister
-		if (callback != NULL && callback()) {
-			LPC_TIM0->MCR &= ~((CONTROL_INTERRUPT | CONTROL_RESET | CONTROL_STOP) << 6); 
+
+		if ((callable = get_callable(TIMER0, MATCH2)) != NULL) {
+			callable();
 		}
+		
+		// In case the callback exceded the time
+		LPC_TIM0->MR2 = (LPC_TIM0->MR2 < LPC_TIM0->TC - 20) ? LPC_TIM0->TC + 20 : LPC_TIM0->MR2;
 		
 		LPC_TIM0->IR =  4 ;			/* clear interrupt flag */	
 	}
@@ -115,11 +115,6 @@ void TIMER0_IRQHandler (void)
 		// Update the value of MR2
 		LPC_TIM0->MR3 += get_matchRegInitialValue(TIMER0, MATCH3);
 		
-		callback = get_callback(TIMER0, MATCH3);
-		// if the callback returns true, disable the mathRegister
-		if (callback != NULL && callback()) {
-			LPC_TIM0->MCR &= ~((CONTROL_INTERRUPT | CONTROL_RESET | CONTROL_STOP) << 9); 
-		}
 	 
 		LPC_TIM0->IR =  8 ;			/* clear interrupt flag */	
 	}
@@ -139,28 +134,6 @@ void TIMER0_IRQHandler (void)
 ******************************************************************************/
 void TIMER1_IRQHandler (void)
 {
-	callable_t callable;
-	
-	// Used for led bright
-	if (LPC_TIM1->IR & 0x01) {
-		
-		callable = get_callable(TIMER1, MATCH0);
-		
-		if (callable != NULL)
-			callable();
-		
-		
-		LPC_TIM1->IR = 0x01;			/* clear interrupt flag */
-	}
-	else if (LPC_TIM1->IR & 0x02) {
-		
-		callable = get_callable(TIMER1, MATCH1);
-		
-		if (callable !=  NULL)
-			callable();
-		
-		LPC_TIM1->IR = 0x02;
-	}
 	
   return;
 }

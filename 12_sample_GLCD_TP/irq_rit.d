@@ -11,3 +11,5 @@
 .\irq_rit.o: RIT\RIT.h
 .\irq_rit.o: RIT\../led/led.h
 .\irq_rit.o: RIT\../joystick/joystick.h
+.\irq_rit.o: RIT\../tamagotchi/controller.h
+.\irq_rit.o: RIT\../tamagotchi/tamagotchi.h

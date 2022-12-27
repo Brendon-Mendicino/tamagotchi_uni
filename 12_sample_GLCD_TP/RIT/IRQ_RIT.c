@@ -14,6 +14,7 @@
 #include "RIT.h"
 #include "../led/led.h"
 #include "../joystick/joystick.h"
+#include "../tamagotchi/controller.h"
 
 
 
@@ -54,8 +55,8 @@ void check_for_joystick_pressed(joystick_enab_t *joystick_enab)
 **
 ******************************************************************************/
 
-volatile int down=0;
-extern char led_value;
+
+extern controller_t controller;
 
 #define BRIGHT_INCREMENT  (1000)
 
@@ -73,46 +74,32 @@ void RIT_IRQHandler (void)
 		false,
 		false
 	};
-
-	led_bright_t *brightness;
-
+	
 	check_for_joystick_pressed(&joystick_enab);
 
 	if (joystick_enab.sel_enab && !joystick_enab.sel_int) {
 		joystick_enab.sel_int = true;
 
-	}
-
-	if (joystick_enab.down_enab && !joystick_enab.down_int) {
-		joystick_enab.down_int = true;
-		
-		brightness = get_led_brighness(0);
-		brightness->match0 -= BRIGHT_INCREMENT;
-		set_led_brightness(0, brightness->match0, brightness->match1);
+		if (controller.dead) {
+			CON_init();
+			CON_render();
+		}
 	}
 
 	if (joystick_enab.left_eban && !joystick_enab.left_int) {
 		joystick_enab.left_int = true;
 
-		brightness = get_led_brighness(0);
-		brightness->match1 += BRIGHT_INCREMENT;
-		set_led_brightness(0, brightness->match0, brightness->match1);
+		if (CON_no_food_active()) {
+			CON_init_food(&(controller.meal));
+		}
 	}
 
 	if (joystick_enab.right_enab && !joystick_enab.right_int) {
 		joystick_enab.right_int = true;
 
-		brightness = get_led_brighness(0);
-		brightness->match1 -= BRIGHT_INCREMENT;
-		set_led_brightness(0, brightness->match0, brightness->match1);
-	}
-
-	if (joystick_enab.up_enab && !joystick_enab.up_int) {
-		joystick_enab.up_int = true;
-
-		brightness = get_led_brighness(0);
-		brightness->match0 += BRIGHT_INCREMENT;
-		set_led_brightness(0, brightness->match0, brightness->match1);
+		if (CON_no_food_active()) {
+			CON_init_food(&(controller.snack));
+		}
 	}
 	
   LPC_RIT->RICTRL |= 0x1;	/* clear interrupt flag */

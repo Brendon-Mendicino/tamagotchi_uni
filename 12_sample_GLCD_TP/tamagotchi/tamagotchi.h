@@ -2,6 +2,7 @@
 #define TAMAGOTCHI_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
 #define SPRITE_NUM      (3)
 #define SPRITE_WIDTH    (17)
@@ -23,9 +24,11 @@ typedef struct {
 
 typedef struct {
     rect_t rect;
+    rect_t old_rect;
     sprite_t *sprite;
     uint16_t colour;
     uint8_t curr_sprite;
+    uint8_t is_eating;
 } tamagotchi_t;
 
 
@@ -33,6 +36,12 @@ typedef struct {
 void TAM_init(void);
 
 void TAM_render(void);
+
+void TAM_clear_render(void);
+
+void TAM_move(int16_t dx, int16_t dy);
+
+void TAM_update(void);
 
 
 

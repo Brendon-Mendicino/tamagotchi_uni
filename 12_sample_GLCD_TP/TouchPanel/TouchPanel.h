@@ -51,8 +51,8 @@ extern Coordinate DisplaySample[3];
 extern Matrix 		matrix ;
 extern Coordinate display ;
 
-#define	CHX 	        0x90 	/* Í¨µÀY+µÄÑ¡Ôñ¿ØÖÆ×Ö */	
-#define	CHY 	        0xd0	/* Í¨µÀX+µÄÑ¡Ôñ¿ØÖÆ×Ö */
+#define	CHX 	        0x90 	/* Í¨ï¿½ï¿½Y+ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */	
+#define	CHY 	        0xd0	/* Í¨ï¿½ï¿½X+ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 
 #define SSPSR_RNE       2
 #define SSPSR_BSY       4
