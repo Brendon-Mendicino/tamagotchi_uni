@@ -12,6 +12,7 @@
 
 #include "lpc17xx.h"
 #include "RIT.h"
+#include "../GLCD/GLCD.h"
 #include "../led/led.h"
 #include "../joystick/joystick.h"
 #include "../tamagotchi/controller.h"
@@ -81,6 +82,7 @@ void RIT_IRQHandler (void)
 		joystick_enab.sel_int = true;
 
 		if (controller.dead) {
+			LCD_Clear(Black);
 			CON_init();
 			CON_render();
 		}

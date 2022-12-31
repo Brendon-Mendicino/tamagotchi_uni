@@ -168,28 +168,26 @@ void render_food(void)
 	}
 }
 
-void move_to_food(rect_t *entit_rect, rect_t *food_rect)
+/**
+ * @brief move the entity towards the food
+ * 
+ * @param e entity rect
+ * @param f food rect
+ */
+void move_to_food(rect_t *e, rect_t *f)
 {
 
 	volatile int32_t modulo;
 	volatile int32_t len;
-	volatile int32_t a;
-	volatile div_t b;
 	
 	modulo = 10;
-	len = (int32_t)(sqrtl((int32_t)(entit_rect->x - food_rect->x) * (int32_t)(entit_rect->x - food_rect->x) + (int32_t)(entit_rect->y - food_rect->y) * (int32_t)(entit_rect->y - food_rect->y) ));
-	a = div(20, 10).quot;
+	// calc the length between the food and the entity.
+	len = (int32_t)(sqrtl((int32_t)(e->x - f->x) * (int32_t)(e->x - f->x) + (int32_t)(e->y - f->y) * (int32_t)(e->y - f->y) ));
 
 	TAM_move(
-		(int16_t)(div((food_rect->x - entit_rect->x) * modulo, len).quot),
-		(int16_t)(div((food_rect->y - entit_rect->y) * modulo, len).quot)
+		(int16_t)(div((f->x - e->x) * modulo, len).quot),
+		(int16_t)(div((f->y - e->y) * modulo, len).quot)
 	);
-/*
-	TAM_move(
-		((food_rect->x < entit_rect->x) ? -1 : 1) * modulo,
-		((food_rect->y < entit_rect->y) ? -1 : 1) * modulo
-	);
-*/
 }
 
 void CON_init(void)
@@ -221,6 +219,8 @@ void CON_init(void)
 	controller.snack.sprite = &(snack);
 
 	controller.active_food = NULL;
+	
+	TAM_init();
 }
 
 
@@ -384,13 +384,13 @@ void CON_render_data(void)
 		GUI_Text(80, MAX_Y - BUTTON_HEIGHT + 10, (uint8_t *)"RESET", controller.text_colour, controller.background_colour);
 	}
 
-	render_food();
 
-
+	// Tamagotchi logic
 	if (controller.dead) {
 		if (entity.rect.x > MAX_X) {
 			GUI_Text(0, MAX_Y/2, (uint8_t *)"YOU CAN'T EVEN PLAY THIS GAME", White, Red);
-			GUI_Text(0, MAX_Y/2 + 20, (uint8_t *)"CATCH ME IF YOU CAN", White, Red);
+			GUI_Text(0, MAX_Y/2 + 20, (uint8_t *)"GO BACK AND PLAY WITH", White, Red);
+			GUI_Text(0, MAX_Y/2 + 40, (uint8_t *)"DOLLS", White, Red);
 		}
 		TAM_move((entity.rect.x < MAX_X) ? 30 : 0, 0);
 	}
@@ -411,14 +411,23 @@ void CON_render_data(void)
 				entity.is_eating = 2;
 			}
 
+			// Increase happiness/satiety levels
+			if (controller.snack.active) {
+				controller.happiness_count = HAPPINESS_UPDATE;
+				controller.happiness += (controller.happiness != 3) ? 1 : 0;
+			}
+			if (controller.meal.active) {
+				controller.satiety_count = HAPPINESS_UPDATE;
+				controller.satiety	 += (controller.satiety != 3) ? 1 : 0;
+			}
 
-			controller.happiness += (controller.snack.active && controller.happiness != 3) ? 1 : 0;
-			controller.satiety	 += (controller.meal.active && controller.satiety != 3) ? 1 : 0;
 			controller.active_food->active = false;
 			controller.chasing_food = false;
 			controller.clear_food = true;
 		}
 	}
+
+	render_food();
 
 	TAM_clear_render();
 	TAM_render();

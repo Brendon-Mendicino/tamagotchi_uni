@@ -47,12 +47,10 @@ int main(void)
 	TouchPanel_Calibrate();
 
 	LCD_Clear(Black);
+	 
 	TAM_init();
-	TAM_render();
-
 	CON_init();
 	CON_render();
-
 
 	/* random number init */
 	srand(0x9d42efec);
@@ -81,7 +79,7 @@ int main(void)
 	enable_timer(TIMER0);
 
 	/* RIT initialization */
-	init_RIT(TIMER_CLK / 20);
+	init_RIT(CURRCLK / 30);
 	enable_RIT();
 	
 	
