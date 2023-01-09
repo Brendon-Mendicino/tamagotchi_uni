@@ -1,7 +1,7 @@
 Dependencies for Project 'sample', Target 'Target 1': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
 F (.\startup_LPC17xx.s)(0x639A94BC)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork -I.\RTE\_Target_1-IC:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include--pd "__UVISION_VERSION SETA 536" --pd "_RTE_ SETA 1" --pd "LPC175x_6x SETA 1" --pd "_RTE_ SETA 1"--list .\startup_lpc17xx.lst --xref -o .\startup_lpc17xx.o --depend .\startup_lpc17xx.d)
-F (.\sample.c)(0x63AD5350)(-c --cpu Cortex-M3 -D__EVAL -g -O3 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="536" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\sample.o --omf_browse .\sample.crf --depend .\sample.d)
+F (.\sample.c)(0x63BC61B5)(-c --cpu Cortex-M3 -D__EVAL -g -O3 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="536" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\sample.o --omf_browse .\sample.crf --depend .\sample.d)
 I (C:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\LPC17xx.h)(0x5E1DC4B4)
 I (C:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\core_cm3.h)(0x60D44B52)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x602585EE)
@@ -15,8 +15,9 @@ I (TouchPanel/TouchPanel.h)(0x63A04C0D)
 I (timer/timer.h)(0x639DC24F)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x602585EC)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x602585E4)
-I (tamagotchi/tamagotchi.h)(0x63A0579D)
-I (tamagotchi/controller.h)(0x63A069B4)
+I (tamagotchi/tamagotchi.h)(0x63BC6135)
+I (tamagotchi/controller.h)(0x63BC669F)
+I (joystick/joystick.h)(0x63BC57CF)
 I (RIT/RIT.h)(0x63989BF1)
 F (.\core_cm3.c)(0x639A94BA)(-c --cpu Cortex-M3 -D__EVAL -g -O3 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="536" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\core_cm3.o --omf_browse .\core_cm3.crf --depend .\core_cm3.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x602585EE)
@@ -42,7 +43,7 @@ I (timer\timer.h)(0x639DC24F)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x602585EC)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x602585E4)
 I (timer\../led/led.h)(0x6399C5D8)
-F (.\timer\lib_timer.c)(0x639DC193)(-c --cpu Cortex-M3 -D__EVAL -g -O3 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="536" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\lib_timer.o --omf_browse .\lib_timer.crf --depend .\lib_timer.d)
+F (.\timer\lib_timer.c)(0x63BC5DE3)(-c --cpu Cortex-M3 -D__EVAL -g -O3 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="536" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\lib_timer.o --omf_browse .\lib_timer.crf --depend .\lib_timer.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x602585E4)
 I (C:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\lpc17xx.h)(0x5E1DC4B4)
 I (C:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\core_cm3.h)(0x60D44B52)
@@ -72,7 +73,7 @@ I (C:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Incl
 I (GLCD\AsciiLib.h)(0x639B2F26)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x602585EE)
 F (.\GLCD\GLCD.h)(0x639A94BC)()
-F (.\RIT\IRQ_RIT.c)(0x63AB4F8A)(-c --cpu Cortex-M3 -D__EVAL -g -O3 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="536" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\irq_rit.o --omf_browse .\irq_rit.crf --depend .\irq_rit.d)
+F (.\RIT\IRQ_RIT.c)(0x63BC62FB)(-c --cpu Cortex-M3 -D__EVAL -g -O3 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="536" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\irq_rit.o --omf_browse .\irq_rit.crf --depend .\irq_rit.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x602585EC)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x602585EE)
 I (C:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\lpc17xx.h)(0x5E1DC4B4)
@@ -85,10 +86,10 @@ I (C:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Incl
 I (RIT\RIT.h)(0x63989BF1)
 I (RIT\../GLCD/GLCD.h)(0x639A94BC)
 I (RIT\../led/led.h)(0x6399C5D8)
-I (RIT\../joystick/joystick.h)(0x6398B1D8)
-I (RIT\../tamagotchi/controller.h)(0x63A069B4)
-I (RIT\../tamagotchi/tamagotchi.h)(0x63A0579D)
-F (.\RIT\lib_RIT.c)(0x6398A725)(-c --cpu Cortex-M3 -D__EVAL -g -O3 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="536" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\lib_rit.o --omf_browse .\lib_rit.crf --depend .\lib_rit.d)
+I (RIT\../joystick/joystick.h)(0x63BC57CF)
+I (RIT\../tamagotchi/controller.h)(0x63BC669F)
+I (RIT\../tamagotchi/tamagotchi.h)(0x63BC6135)
+F (.\RIT\lib_RIT.c)(0x63BC5DFC)(-c --cpu Cortex-M3 -D__EVAL -g -O3 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="536" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\lib_rit.o --omf_browse .\lib_rit.crf --depend .\lib_rit.d)
 I (C:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\lpc17xx.h)(0x5E1DC4B4)
 I (C:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\core_cm3.h)(0x60D44B52)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x602585EE)
@@ -132,10 +133,10 @@ I (C:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include
 I (C:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armcc.h)(0x60D44B52)
 I (C:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\mpu_armv7.h)(0x60D44B52)
 I (C:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\system_LPC17xx.h)(0x58493F92)
-I (joystick\joystick.h)(0x6398B1D8)
+I (joystick\joystick.h)(0x63BC57CF)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x602585EC)
 I (joystick\../led/led.h)(0x6399C5D8)
-F (.\joystick\joystick.h)(0x6398B1D8)()
+F (.\joystick\joystick.h)(0x63BC57CF)()
 F (.\joystick\lib_joystick.c)(0x6398A41F)(-c --cpu Cortex-M3 -D__EVAL -g -O3 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="536" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\lib_joystick.o --omf_browse .\lib_joystick.crf --depend .\lib_joystick.d)
 I (C:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\lpc17xx.h)(0x5E1DC4B4)
 I (C:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\core_cm3.h)(0x60D44B52)
@@ -145,10 +146,10 @@ I (C:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include
 I (C:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armcc.h)(0x60D44B52)
 I (C:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\mpu_armv7.h)(0x60D44B52)
 I (C:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\system_LPC17xx.h)(0x58493F92)
-I (joystick\joystick.h)(0x6398B1D8)
+I (joystick\joystick.h)(0x63BC57CF)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x602585EC)
-F (.\tamagotchi\tamagotchi.c)(0x63A05F4A)(-c --cpu Cortex-M3 -D__EVAL -g -O3 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="536" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\tamagotchi.o --omf_browse .\tamagotchi.crf --depend .\tamagotchi.d)
-I (tamagotchi\tamagotchi.h)(0x63A0579D)
+F (.\tamagotchi\tamagotchi.c)(0x63BC5895)(-c --cpu Cortex-M3 -D__EVAL -g -O3 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="536" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\tamagotchi.o --omf_browse .\tamagotchi.crf --depend .\tamagotchi.d)
+I (tamagotchi\tamagotchi.h)(0x63BC6135)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x602585EE)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x602585EC)
 I (tamagotchi\../GLCD/GLCD.h)(0x639A94BC)
@@ -159,15 +160,15 @@ I (C:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include
 I (C:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\cmsis_armcc.h)(0x60D44B52)
 I (C:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\mpu_armv7.h)(0x60D44B52)
 I (C:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\system_LPC17xx.h)(0x58493F92)
-F (.\tamagotchi\tamagotchi.h)(0x63A0579D)()
-F (.\tamagotchi\controller.c)(0x63ADFA57)(-c --cpu Cortex-M3 -D__EVAL -g -O3 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="536" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\controller.o --omf_browse .\controller.crf --depend .\controller.d)
+F (.\tamagotchi\tamagotchi.h)(0x63BC6135)()
+F (.\tamagotchi\controller.c)(0x63BC65D8)(-c --cpu Cortex-M3 -D__EVAL -g -O3 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="536" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\controller.o --omf_browse .\controller.crf --depend .\controller.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x602585E4)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x602585E4)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x602585E8)
-I (tamagotchi\controller.h)(0x63A069B4)
+I (tamagotchi\controller.h)(0x63BC669F)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x602585EE)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x602585EC)
-I (tamagotchi\tamagotchi.h)(0x63A0579D)
+I (tamagotchi\tamagotchi.h)(0x63BC6135)
 I (tamagotchi\../GLCD/GLCD.h)(0x639A94BC)
 I (C:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\LPC17xx.h)(0x5E1DC4B4)
 I (C:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include\core_cm3.h)(0x60D44B52)
@@ -179,7 +180,7 @@ I (C:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Incl
 I (tamagotchi\../GLCD/AsciiLib.h)(0x639B2F26)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x602585EE)
 I (tamagotchi\../TouchPanel/TouchPanel.h)(0x63A04C0D)
-F (.\tamagotchi\controller.h)(0x63A069B4)()
+F (.\tamagotchi\controller.h)(0x63BC669F)()
 F (.\TouchPanel\TouchPanel.c)(0x63A0250C)(-c --cpu Cortex-M3 -D__EVAL -g -O3 --apcs=interwork -I.\RTE\_Target_1-IC:\Users\mendicino\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include-IC:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include-D__UVISION_VERSION="536" -D_RTE_ -DLPC175x_6x -D_RTE_ -DSIMULATOR-o .\touchpanel.o --omf_browse .\touchpanel.crf --depend .\touchpanel.d)
 I (TouchPanel\../GLCD/GLCD.h)(0x639A94BC)
 I (C:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\LPC17xx.h)(0x5E1DC4B4)

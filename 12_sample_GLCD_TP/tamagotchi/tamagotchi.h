@@ -7,7 +7,7 @@
 #define SPRITE_NUM      (3)
 #define SPRITE_WIDTH    (17)
 #define SPRITE_HEIGHT   (13)
-#define SPRITE_SCALE    (5)
+#define SPRITE_SCALE    (2)
 
 #define SCREEN_WIDTH    (SPRITE_WIDTH * SPRITE_SCALE)
 #define SCREEN_HEIGHT   (SPRITE_HEIGHT * SPRITE_SCALE)

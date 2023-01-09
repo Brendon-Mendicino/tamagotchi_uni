@@ -63,7 +63,7 @@ extern controller_t controller;
 
 void RIT_IRQHandler (void)
 {
-	joystick_enab_t joystick_enab = {
+	static joystick_enab_t joystick_enab = {
 		false,
 		false,
 		false,
@@ -82,8 +82,8 @@ void RIT_IRQHandler (void)
 		joystick_enab.sel_int = true;
 
 		if (controller.dead) {
-			LCD_Clear(Black);
 			CON_init();
+			LCD_Clear(Black);
 			CON_render();
 		}
 	}

@@ -123,6 +123,7 @@ void TAM_render(void)
 void TAM_clear_render(void)
 {
 	int row;
+
 	for (row = 0; row < entity.old_rect.height; row++) {
 		LCD_DrawLine(entity.old_rect.x, entity.old_rect.y + row, entity.old_rect.x + entity.old_rect.width, entity.old_rect.y + row, Black);
 	}

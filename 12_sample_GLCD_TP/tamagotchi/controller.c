@@ -365,6 +365,10 @@ void CON_render(void)
 	TAM_render();
 }
 
+/**
+ * @brief fast render
+ * 
+ */
 void CON_render_data(void)
 {
 	int row;
@@ -378,6 +382,8 @@ void CON_render_data(void)
 	// If the reset flag is active, redraw the bottons
 	if (controller.update_to_reset) {
 		controller.update_to_reset = false;
+
+		// Clear previous text to redraw the RESET text
 		for (row = MAX_Y-1; row >= MAX_Y - BUTTON_HEIGHT; row--) {
 			LCD_DrawLine(0, row, MAX_X, row, controller.background_colour);
 		}
@@ -390,9 +396,18 @@ void CON_render_data(void)
 		if (entity.rect.x > MAX_X) {
 			GUI_Text(0, MAX_Y/2, (uint8_t *)"YOU CAN'T EVEN PLAY THIS GAME", White, Red);
 			GUI_Text(0, MAX_Y/2 + 20, (uint8_t *)"GO BACK AND PLAY WITH", White, Red);
-			GUI_Text(0, MAX_Y/2 + 40, (uint8_t *)"DOLLS", White, Red);
+			GUI_Text(0, MAX_Y/2 + 40, (uint8_t *)"DOLLS :'(", White, Red);
 		}
 		TAM_move((entity.rect.x < MAX_X) ? 30 : 0, 0);
+		
+		// Redundant chek: if the procedure is interrupted in the middle of drawing the text,
+		// the next frame will render text that should not.
+		if (!controller.dead) {
+			GUI_Text(0, MAX_Y/2, (uint8_t *)"YOU CAN'T EVEN PLAY THIS GAME", Black, Black);
+			GUI_Text(0, MAX_Y/2 + 20, (uint8_t *)"GO BACK AND PLAY WITH", Black, Black);
+			GUI_Text(0, MAX_Y/2 + 40, (uint8_t *)"DOLLS :'(", Black, Black);
+			return;
+		}
 	}
 	else if (entity.is_eating) {
 		// Don't do anything
@@ -404,21 +419,21 @@ void CON_render_data(void)
 		if (collision_detection(&entity.rect, &controller.active_food->rect)) {
 
 			// If the bar is full don't eat
-			if (controller.meal.active && controller.satiety != 3) {
+			if (controller.meal.active && controller.satiety != MAX_SATIETY) {
 				entity.is_eating = 2;
 			}
-			else if (controller.snack.active && controller.happiness != 3) {
+			else if (controller.snack.active && controller.happiness != MAX_HAPPINESS) {
 				entity.is_eating = 2;
 			}
 
 			// Increase happiness/satiety levels
 			if (controller.snack.active) {
 				controller.happiness_count = HAPPINESS_UPDATE;
-				controller.happiness += (controller.happiness != 3) ? 1 : 0;
+				controller.happiness += (controller.happiness != MAX_HAPPINESS) ? 1 : 0;
 			}
 			if (controller.meal.active) {
 				controller.satiety_count = HAPPINESS_UPDATE;
-				controller.satiety	 += (controller.satiety != 3) ? 1 : 0;
+				controller.satiety	 += (controller.satiety != MAX_SATIETY) ? 1 : 0;
 			}
 
 			controller.active_food->active = false;

@@ -153,28 +153,28 @@ uint32_t init_timer ( uint8_t timer_num, uint32_t Prescaler )
 		LPC_TIM0->PR = Prescaler;
 
 		NVIC_EnableIRQ(TIMER0_IRQn);
-		NVIC_SetPriority(TIMER0_IRQn, 0);		/* more priority than buttons */
+		NVIC_SetPriority(TIMER0_IRQn, 1);		/* more priority than buttons */
 		return (0);
 	}
 	else if ( timer_num == TIMER1 ) {
 		LPC_TIM1->PR = Prescaler;
 
 		NVIC_EnableIRQ(TIMER1_IRQn);
-		NVIC_SetPriority(TIMER1_IRQn, 0);		/* more priority than buttons */
+		NVIC_SetPriority(TIMER1_IRQn, 1);		/* more priority than buttons */
 		return (0);
 	}
 	else if ( timer_num == TIMER2 ) {
 		LPC_TIM2->PR = Prescaler;
 		
 		NVIC_EnableIRQ(TIMER2_IRQn);
-		NVIC_SetPriority(TIMER2_IRQn, 0);		/* more priority than buttons */
+		NVIC_SetPriority(TIMER2_IRQn, 1);		/* more priority than buttons */
 		return (0);
 	}
 	else if ( timer_num == TIMER3 ) {
 		LPC_TIM3->PR = Prescaler;
 
 		NVIC_EnableIRQ(TIMER3_IRQn);
-		NVIC_SetPriority(TIMER3_IRQn, 0);		/* more priority than buttons */
+		NVIC_SetPriority(TIMER3_IRQn, 1);		/* more priority than buttons */
 		return (0);
 	}
 	return (1);

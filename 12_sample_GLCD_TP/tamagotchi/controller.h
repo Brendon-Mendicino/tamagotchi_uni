@@ -17,10 +17,10 @@
 
 
 #define MAX_HAPPINESS   (3)
-#define HAPPINESS_UPDATE (6)
+#define HAPPINESS_UPDATE (5)
 
 #define MAX_SATIETY     (3)
-#define SATIETY_UPDATE  (6)
+#define SATIETY_UPDATE  (5)
 
 #define FOOD_LEN       (11)
 
@@ -62,10 +62,6 @@ void CON_init(void);
 
 void CON_render(void);
 
-/**
- * @brief minimal render
- * 
- */
 void CON_render_data(void);
 
 bool CON_no_food_active(void);

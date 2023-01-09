@@ -27,6 +27,7 @@
 #include "timer/timer.h"
 #include "tamagotchi/tamagotchi.h"
 #include "tamagotchi/controller.h"
+#include "joystick/joystick.h"
 #include "RIT/RIT.h"
 
 #define SIMULATOR 1
@@ -48,7 +49,6 @@ int main(void)
 
 	LCD_Clear(Black);
 	 
-	TAM_init();
 	CON_init();
 	CON_render();
 
@@ -63,21 +63,21 @@ int main(void)
 
 	// TOUCH MATCHING
 	//init_match_reg(TIMER0, MATCH0, CONTROL_INTERRUPT, 0xC8, true); /* 8us * 25MHz = 200 ~= 0xC8 */
-	init_match_reg(TIMER0, MATCH0, CONTROL_INTERRUPT, TIMER_CLK / 20, true);
-	set_callable(TIMER0, MATCH0, CON_on_click_listener);
-
+//	init_match_reg(TIMER0, MATCH0, CONTROL_INTERRUPT, TIMER_CLK / 20, true);
+//	set_callable(TIMER0, MATCH0, CON_on_click_listener);
 
 	// CONTROLLER UPDATE RATE (1 sec)
-	init_match_reg(TIMER0, MATCH1, CONTROL_INTERRUPT, TIMER_CLK / 10, true);
-	set_callable(TIMER0, MATCH1, CON_render_data);
-
+	init_match_reg(TIMER0, MATCH1, CONTROL_INTERRUPT, TIMER_CLK / 20, true);
+	set_callable(TIMER0, MATCH1, CON_update);
+	
 	// SCREEN UPDATE FPS (30)
-	init_match_reg(TIMER0, MATCH2, CONTROL_INTERRUPT, TIMER_CLK / 5, true);
-	set_callable(TIMER0, MATCH2, CON_update);
+	init_match_reg(TIMER0, MATCH2, CONTROL_INTERRUPT, TIMER_CLK / 30, true);
+	set_callable(TIMER0, MATCH2, CON_render_data);
 
 	
 	enable_timer(TIMER0);
 
+	joystick_init();
 	/* RIT initialization */
 	init_RIT(CURRCLK / 30);
 	enable_RIT();
