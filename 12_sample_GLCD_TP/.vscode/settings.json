@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "string.h": "c",
+        "lpc17xx.h": "c",
+        "defines.h": "c",
+        "adc.h": "c",
+        "sound.h": "c",
+        "timer.h": "c",
+        "controller.h": "c"
+    }
+}

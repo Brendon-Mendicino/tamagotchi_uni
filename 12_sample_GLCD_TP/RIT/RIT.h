@@ -11,13 +11,22 @@
 #define __RIT_H
 
 #include <stdint.h>
+#include <stdlib.h>
 
-/* init_RIT.c */
-extern uint32_t init_RIT( uint32_t RITInterval );
-extern void enable_RIT( void );
-extern void disable_RIT( void );
-extern void reset_RIT( void );
-/* IRQ_RIT.c */
+#include "../defines/defines.h"
+
+extern uint32_t RIT_init( uint32_t RITInterval, uint32_t priority );
+
+extern void RIT_enable( void );
+
+extern void RIT_disable( void );
+
+extern void RIT_reset( void );
+
+extern void RIT_set_callable(callable_t callable);
+
+extern callable_t RIT_get_callable(void);
+
 extern void RIT_IRQHandler (void);
 
 #endif /* end __RIT_H */

@@ -24,21 +24,27 @@
 
 #define FOOD_LEN       (11)
 
+#define SOUND_ICON_LEN       (15)
+#define SOUND_LEVEL_ICON_LEN (13)
+
+
+
 typedef uint8_t food_sprite_t[FOOD_LEN][FOOD_LEN];
 
-typedef struct {
+typedef struct age_t {
     uint8_t sec;
     uint8_t min;
     uint8_t hh;
 } age_t;
 
-typedef struct {
+typedef struct food_t {
     rect_t rect;
     bool active;
     food_sprite_t *sprite;
 } food_t;
 
-typedef struct {
+
+typedef struct controller_t {
     age_t age;
     uint8_t happiness;
     uint8_t satiety;
@@ -48,6 +54,7 @@ typedef struct {
     bool dead;
     bool chasing_food;
     bool clear_food;
+    bool death_text_wrote;
     uint16_t background_colour;
     uint16_t text_colour;
 
@@ -59,6 +66,8 @@ typedef struct {
 
 
 void CON_init(void);
+
+void CON_click_listener(uint16_t x, uint16_t y);
 
 void CON_render(void);
 

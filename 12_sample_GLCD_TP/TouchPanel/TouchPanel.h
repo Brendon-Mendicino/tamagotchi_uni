@@ -73,6 +73,7 @@ extern Coordinate display ;
 #define TP_INT_IN   ( LPC_GPIO2->FIOPIN & (1<<13) ) 
 
 /* Private function prototypes -----------------------------------------------*/				
+
 void TP_Init(void);	
 Coordinate *Read_Ads7846(void);
 void TouchPanel_Calibrate(void);

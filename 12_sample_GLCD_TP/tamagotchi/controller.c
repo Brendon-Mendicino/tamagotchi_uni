@@ -5,10 +5,11 @@
 
 
 #include "controller.h"
+#include "tamagotchi.h"
 #include "../GLCD/GLCD.h"
 #include "../GLCD/AsciiLib.h"
 #include "../TouchPanel/TouchPanel.h"
-#include "tamagotchi.h"
+#include "../sound/sound.h"
 
 
 
@@ -109,6 +110,89 @@ uint8_t meal[FOOD_LEN][FOOD_LEN]={
 {0,0,0,0,0,0,0,1,1,1,0},
 };
 
+
+const uint8_t sound_icon[SOUND_ICON_LEN][SOUND_ICON_LEN] = {
+{0,0,0,0,0,0,0,0,0,0,0,0,1,1,1},
+{0,0,0,0,0,0,0,0,0,0,0,1,1,1,1},
+{0,0,0,0,0,0,0,0,0,0,1,1,1,1,1},
+{1,0,0,0,0,0,0,0,0,1,1,1,1,1,1},
+{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+{1,0,0,0,0,0,0,0,0,1,1,1,1,1,1},
+{0,0,0,0,0,0,0,0,0,0,1,1,1,1,1},
+{0,0,0,0,0,0,0,0,0,0,0,1,1,1,1},
+{0,0,0,0,0,0,0,0,0,0,0,0,1,1,1},
+};
+
+const uint8_t sound_volume_icon[MAX_VOLUME][SOUND_LEVEL_ICON_LEN][SOUND_LEVEL_ICON_LEN] = {
+{
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+},
+{
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,1,1,1,0,0,0,0,0,0,0,0,0},
+{0,1,1,1,0,0,0,0,0,0,0,0,0},
+{0,1,1,1,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+},
+{
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,1,1,1,0,0,0,0},
+{0,0,0,0,0,0,1,1,1,0,0,0,0},
+{0,1,1,1,0,0,1,1,1,0,0,0,0},
+{0,1,1,1,0,0,1,1,1,0,0,0,0},
+{0,1,1,1,0,0,1,1,1,0,0,0,0},
+{0,0,0,0,0,0,1,1,1,0,0,0,0},
+{0,0,0,0,0,0,1,1,1,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0,0,0,0,0,0,0},
+},
+{
+{0,0,0,0,0,0,0,0,0,0,1,1,1},
+{0,0,0,0,0,0,0,0,0,0,1,1,1},
+{0,0,0,0,0,0,0,0,0,0,1,1,1},
+{0,0,0,0,0,0,1,1,1,0,1,1,1},
+{0,0,0,0,0,0,1,1,1,0,1,1,1},
+{0,1,1,1,0,0,1,1,1,0,1,1,1},
+{0,1,1,1,0,0,1,1,1,0,1,1,1},
+{0,1,1,1,0,0,1,1,1,0,1,1,1},
+{0,0,0,0,0,0,1,1,1,0,1,1,1},
+{0,0,0,0,0,0,1,1,1,0,1,1,1},
+{0,0,0,0,0,0,0,0,0,0,1,1,1},
+{0,0,0,0,0,0,0,0,0,0,1,1,1},
+{0,0,0,0,0,0,0,0,0,0,1,1,1},
+},
+};
+
+
 static char text[100];
 
 controller_t controller;
@@ -130,6 +214,33 @@ static void draw_battery(uint32_t level, bool left_battery)
 			}
 			else {
 				LCD_SetPoint(30 + col + shift_amt, DATA_HEIGHT - BATTERY_HEIGHT - 10 + row, controller.background_colour);
+			}
+		}
+	}
+}
+
+static void draw_speaker(bool fast_draw)
+{
+	int row, col;
+	volatile uint32_t volume = SOUND_get_volume();
+
+	if (!fast_draw) {
+		for (row = 0; row < SOUND_ICON_LEN; row++) {
+			for (col = 0; col < SOUND_ICON_LEN; col++) {
+				if (sound_icon[row][col]) {
+					LCD_SetPoint(col + MAX_X - SOUND_ICON_LEN - SOUND_LEVEL_ICON_LEN - 5, row + 5, controller.text_colour);
+				}
+			}
+		}
+	}
+	
+	for (row = 0; row < SOUND_LEVEL_ICON_LEN; row++) {
+		for (col = 0; col < SOUND_LEVEL_ICON_LEN; col++) {
+			if (sound_volume_icon[volume][row][col]) {
+				LCD_SetPoint(col + MAX_X - SOUND_LEVEL_ICON_LEN - 5, row + 5, controller.text_colour);
+			}
+			else {
+				LCD_SetPoint(col + MAX_X - SOUND_LEVEL_ICON_LEN - 5, row + 5, controller.background_colour);
 			}
 		}
 	}
@@ -201,8 +312,10 @@ void CON_init(void)
 	controller.dead = false;
 	controller.chasing_food = false;
 	controller.update_to_reset = false;
+	controller.death_text_wrote = false;
 
-	controller.satiety_count = 0;
+
+	controller.happiness_count = 0;
 	controller.satiety_count = 0;
 
 	controller.background_colour = Grey;
@@ -228,18 +341,22 @@ void CON_update(void)
 {
 	if (!controller.dead) {
 		update_age();
+
+		// Happiness and statiety only decrease after 5 update cycles.
+		controller.happiness -= (controller.happiness_count == HAPPINESS_UPDATE - 1 && controller.happiness != 0) ? 1 : 0;
+		controller.satiety   -= (controller.satiety_count == SATIETY_UPDATE - 1     && controller.satiety != 0)   ? 1 : 0;
+
+		controller.happiness_count = (controller.happiness_count + 1) % HAPPINESS_UPDATE;
+		controller.satiety_count   = (controller.satiety_count + 1) % SATIETY_UPDATE;
 	}
 
-	// Happiness and statiety only decrease after 5 update cycles.
-	controller.happiness -= (controller.happiness_count == HAPPINESS_UPDATE - 1 && controller.happiness != 0) ? 1 : 0;
-	controller.satiety   -= (controller.satiety_count == SATIETY_UPDATE - 1     && controller.satiety != 0)   ? 1 : 0;
-
-	controller.happiness_count = (controller.happiness_count + 1) % HAPPINESS_UPDATE;
-	controller.satiety_count   = (controller.satiety_count + 1) % SATIETY_UPDATE;
-
+	// Check if the tamagotchi died
 	if (controller.dead != true && controller.happiness == 0 && controller.satiety == 0) {
 		controller.update_to_reset = true;
 		controller.dead = true;
+
+		// Tamagotchi's death sound
+		SOUND_death();
 	}
 
 	TAM_update();
@@ -329,6 +446,52 @@ void CON_on_click_listener(void)
 }
 
 
+void reset_cuddling(void)
+{
+	entity.is_cuddling = false;
+	TIMER_match_reg(TIMER2, MATCH0, CONTROL_NULL, 0, false);
+}
+
+void reset_eating(void)
+{
+	entity.is_eating = false;
+	TIMER_match_reg(TIMER2, MATCH3, CONTROL_NULL, 0, false);
+}
+
+/**
+ * @brief Checks if the tamagotchi can be cuddled, if it can it refilles the happinyess level.
+ * 
+ * @param x x coordinate
+ * @param y y coordinate
+ */
+void CON_click_listener(uint16_t x, uint16_t y)
+{
+	if (entity.is_cuddling) {
+		return;
+	}
+
+	if (controller.dead || entity.is_eating) {
+		return;
+	}
+
+	if ((x >= entity.rect.x && x <= entity.rect.x + entity.rect.width) &&
+		(y >= entity.rect.y && y <= entity.rect.y + entity.rect.height)) {
+		
+		entity.is_cuddling = true;
+		controller.happiness = MAX_HAPPINESS;
+		controller.happiness_count = 0;
+
+		SOUND_cuddles();
+		TIMER_match_reg(TIMER2, MATCH0, CONTROL_INTERRUPT, TIMER_CLK * 2 / DIV_SCALE, true);  /* 2 sec */
+		TIMER_set_callable(TIMER2, MATCH0, reset_cuddling);
+	}
+}
+
+
+
+
+
+
 void CON_render(void)
 {
 	uint16_t row;
@@ -345,6 +508,8 @@ void CON_render(void)
 
 	draw_battery(NUM_BATTERY - controller.happiness - 1, true);
 	draw_battery(NUM_BATTERY - controller.satiety - 1, false);
+
+	draw_speaker(false);
 
 
 	// Draw button context
@@ -379,6 +544,8 @@ void CON_render_data(void)
 	draw_battery(NUM_BATTERY - controller.happiness - 1, true);
 	draw_battery(NUM_BATTERY - controller.satiety - 1, false);
 
+	draw_speaker(true);
+
 	// If the reset flag is active, redraw the bottons
 	if (controller.update_to_reset) {
 		controller.update_to_reset = false;
@@ -394,20 +561,23 @@ void CON_render_data(void)
 	// Tamagotchi logic
 	if (controller.dead) {
 		if (entity.rect.x > MAX_X) {
+
+			// If the text has already been wrote, just exit to avoid uneccessary overhead
+			if (controller.death_text_wrote) {
+				return;
+			}
+
 			GUI_Text(0, MAX_Y/2, (uint8_t *)"YOU CAN'T EVEN PLAY THIS GAME", White, Red);
-			GUI_Text(0, MAX_Y/2 + 20, (uint8_t *)"GO BACK AND PLAY WITH", White, Red);
-			GUI_Text(0, MAX_Y/2 + 40, (uint8_t *)"DOLLS :'(", White, Red);
+			GUI_Text(0, MAX_Y/2 + 20, (uint8_t *)"YOU ARE SO TERRIBLE...", White, Red);
+			GUI_Text(0, MAX_Y/2 + 40, (uint8_t *)"GO BACK AND PLAY WITH MINECRAFT", White, Red);
+
+			controller.death_text_wrote = true;
 		}
-		TAM_move((entity.rect.x < MAX_X) ? 30 : 0, 0);
-		
-		// Redundant chek: if the procedure is interrupted in the middle of drawing the text,
-		// the next frame will render text that should not.
-		if (!controller.dead) {
-			GUI_Text(0, MAX_Y/2, (uint8_t *)"YOU CAN'T EVEN PLAY THIS GAME", Black, Black);
-			GUI_Text(0, MAX_Y/2 + 20, (uint8_t *)"GO BACK AND PLAY WITH", Black, Black);
-			GUI_Text(0, MAX_Y/2 + 40, (uint8_t *)"DOLLS :'(", Black, Black);
-			return;
-		}
+
+		TAM_move((entity.rect.x <= MAX_X) ? 5 : 0, 0);
+	}
+	else if (entity.is_cuddling) {
+		// Don't do anything
 	}
 	else if (entity.is_eating) {
 		// Don't do anything
@@ -416,15 +586,21 @@ void CON_render_data(void)
 	else if (controller.chasing_food) {
 		move_to_food(&(entity.rect), &(controller.active_food->rect));
 
+		// If collided with the food it starts eating it
 		if (collision_detection(&entity.rect, &controller.active_food->rect)) {
 
-			// If the bar is full don't eat
-			if (controller.meal.active && controller.satiety != MAX_SATIETY) {
-				entity.is_eating = 2;
+			if (controller.meal.active) {
+				entity.is_eating = true;
 			}
-			else if (controller.snack.active && controller.happiness != MAX_HAPPINESS) {
-				entity.is_eating = 2;
+			else if (controller.snack.active) {
+				entity.is_eating = true;
 			}
+
+			// Start the eating sound
+			SOUND_eating();
+			TIMER_match_reg(TIMER2, MATCH3, CONTROL_INTERRUPT, TIMER_CLK / DIV_SCALE, true);  /* 2 sec */
+			TIMER_set_callable(TIMER2, MATCH3, reset_eating);
+
 
 			// Increase happiness/satiety levels
 			if (controller.snack.active) {

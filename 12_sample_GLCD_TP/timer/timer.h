@@ -14,6 +14,8 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+#include "../defines/defines.h"
+
 #define TIMER_TOT						(4)
 #define MATCH_TOT						(4)
 
@@ -37,36 +39,27 @@
 #define TIMER_CLK						(CURRCLK >> 2)  /* CURRCLK / 4 */
 
 
-typedef bool (*callback_t)(void);
 
-typedef void (*callable_t)(void);
+extern uint32_t TIMER_init( uint8_t timer_num, uint32_t priority, uint32_t Prescaler );
 
-/* init_timer.c */
-/**
- * @brief intializes the timer and enables the interrupt
- * 
- * @param timer_num timer id
- * @param Prescaler timer prescaler
- * @return uint32_t return 0 if the timer was intialized, 1 if failed
- */
-extern uint32_t init_timer( uint8_t timer_num, uint32_t Prescaler );
+extern void TIMER_enable( uint8_t timer_num );
 
-extern void init_match_reg( uint8_t timer_num, uint8_t MatchReg, uint8_t SRImatchReg, uint32_t TimerInterval, bool add_TC);
-extern void init_match_reg_millis(uint8_t timer, uint8_t match_reg, uint8_t SRI_match_reg, uint32_t millis, bool add_TC);
+extern void TIMER_disable( uint8_t timer_num );
+
+extern void TIMER_reset( uint8_t timer_num );
 
 
-extern void enable_timer( uint8_t timer_num );
-extern void disable_timer( uint8_t timer_num );
-extern void reset_timer( uint8_t timer_num );
+extern void TIMER_match_reg( uint8_t timer_num, uint8_t MatchReg, uint8_t SRImatchReg, uint32_t TimerInterval, bool add_TC);
 
-extern void set_callback(uint8_t timer, uint8_t matchReg, callback_t callback);
-extern void set_callable(uint8_t timer, uint8_t matchReg, callable_t callable);
-extern callback_t get_callback(uint8_t timer, uint8_t matchReg);
-extern callable_t get_callable(uint8_t timer, uint8_t matchReg);
+extern void TIMER_match_reg_millis(uint8_t timer, uint8_t match_reg, uint8_t SRI_match_reg, uint32_t millis, bool add_TC);
 
-extern uint32_t get_matchRegInitialValue(uint8_t timer, uint8_t matchReg);
 
-/* IRQ_timer.c */
+extern void TIMER_set_callable(uint8_t timer, uint8_t matchReg, callable_t callable);
+
+extern callable_t TIMER_get_callable(uint8_t timer, uint8_t matchReg);
+
+extern uint32_t TIMER_get_match_reg_update_val(uint8_t timer, uint8_t matchReg);
+
 extern void TIMER0_IRQHandler (void);
 extern void TIMER1_IRQHandler (void);
 

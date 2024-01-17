@@ -15,20 +15,21 @@
 
 typedef uint8_t sprite_t[SCREEN_HEIGHT][SCREEN_WIDTH];
 
-typedef struct {
+typedef struct rect_t {
     uint16_t x;
     uint16_t y;
     uint16_t width;
     uint16_t height;
 } rect_t;
 
-typedef struct {
+typedef struct tamagotchi_t {
     rect_t rect;
     rect_t old_rect;
     sprite_t *sprite;
     uint16_t colour;
     uint8_t curr_sprite;
-    uint8_t is_eating;
+    bool is_eating;
+    bool is_cuddling;
 } tamagotchi_t;
 
 

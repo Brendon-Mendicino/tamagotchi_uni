@@ -10,3 +10,4 @@
 .\lib_timer.o: C:\Users\mendicino\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.7.1\Device\Include\system_LPC17xx.h
 .\lib_timer.o: timer\timer.h
 .\lib_timer.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\lib_timer.o: timer\../defines/defines.h

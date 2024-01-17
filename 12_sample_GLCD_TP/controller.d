@@ -17,3 +17,7 @@
 .\controller.o: tamagotchi\../GLCD/AsciiLib.h
 .\controller.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\controller.o: tamagotchi\../TouchPanel/TouchPanel.h
+.\controller.o: tamagotchi\../sound/sound.h
+.\controller.o: tamagotchi\../sound/../defines/defines.h
+.\controller.o: tamagotchi\../sound/../adc/adc.h
+.\controller.o: tamagotchi\../sound/../timer/timer.h

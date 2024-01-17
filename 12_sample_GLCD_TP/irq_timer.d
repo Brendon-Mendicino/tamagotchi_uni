@@ -10,4 +10,5 @@
 .\irq_timer.o: timer\timer.h
 .\irq_timer.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\irq_timer.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\irq_timer.o: timer\../defines/defines.h
 .\irq_timer.o: timer\../led/led.h

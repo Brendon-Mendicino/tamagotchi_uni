@@ -1,0 +1,9 @@
+.\sound.o: sound\sound.c
+.\sound.o: sound\sound.h
+.\sound.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\sound.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\sound.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\sound.o: sound\../defines/defines.h
+.\sound.o: sound\../adc/adc.h
+.\sound.o: sound\../timer/timer.h
+.\sound.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

@@ -11,3 +11,4 @@
 .\funct_led.o: led\../timer/timer.h
 .\funct_led.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\funct_led.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\funct_led.o: led\../timer/../defines/defines.h

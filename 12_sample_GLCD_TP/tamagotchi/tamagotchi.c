@@ -53,8 +53,26 @@ uint8_t sprite[SPRITE_NUM][SPRITE_HEIGHT][SPRITE_WIDTH] = {
 
 };
 
+
+uint8_t cuddle_sprite_downscale[SPRITE_HEIGHT][SPRITE_WIDTH] = {
+{0,1,1,0,1,0,0,1,0,1,1,1,1,0,1,1,0},
+{0,0,1,1,0,0,0,0,1,1,0,0,0,1,0,0,1},
+{0,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,0},
+{0,0,1,0,0,0,0,0,0,1,1,1,1,1,1,1,1},
+{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+{1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0},
+{1,0,0,0,1,0,0,0,1,0,0,1,1,1,1,1,0},
+{1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0},
+{1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,1},
+{0,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0},
+{0,0,0,1,0,0,0,1,0,0,0,0,1,0,1,0,0},
+{0,0,1,1,0,0,1,1,1,0,0,0,0,1,0,0,0},
+{0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0},
+};
+
 uint8_t sprite_scale[SPRITE_NUM][SPRITE_HEIGHT * SPRITE_SCALE][SPRITE_WIDTH * SPRITE_SCALE];
 
+uint8_t cuddle_sprite[SPRITE_HEIGHT * SPRITE_SCALE][SPRITE_WIDTH * SPRITE_SCALE];
 
 tamagotchi_t entity;
 
@@ -64,6 +82,7 @@ void TAM_init(void)
 {
 	int num, row, col, scale;
 
+	// Scale for idle sprites
 	for (num = 0; num < SPRITE_NUM; num++) {
 		for (row = 0; row < SPRITE_HEIGHT; row++) {
 			for (col = 0; col < SPRITE_WIDTH; col++) {
@@ -73,6 +92,16 @@ void TAM_init(void)
 			}
 		}
 	}
+
+	// Scale for cuddle sprite
+	for (row = 0; row < SPRITE_HEIGHT; row++) {
+		for (col = 0; col < SPRITE_WIDTH; col++) {
+			for (scale = 0; scale < SPRITE_SCALE * SPRITE_SCALE; scale++) {
+				cuddle_sprite[row * SPRITE_SCALE + (scale / SPRITE_SCALE)][col * SPRITE_SCALE + (scale % SPRITE_SCALE)] = cuddle_sprite_downscale[row][col];
+			}
+		}
+	}
+
 
 	entity.curr_sprite = 0;
 	entity.sprite = &(sprite_scale[0]);
@@ -87,6 +116,7 @@ void TAM_init(void)
 	entity.old_rect = entity.rect;
 
 	entity.is_eating = false;
+	entity.is_cuddling = false;
 }
 
 
@@ -96,7 +126,16 @@ void TAM_render(void)
 	int row, col;
 	sprite_t *sprite = entity.sprite;
 
-	if (entity.is_eating != 1) {
+	if (entity.is_cuddling) {
+		for (row = 0; row < entity.rect.height; row++) {
+			for (col = 0; col < entity.rect.width; col++) {
+				if (cuddle_sprite[row][col] == 1) {
+					LCD_SetPoint(entity.rect.x + col, entity.rect.y + row, entity.colour);
+				}
+			}
+		}
+	}
+	else if (entity.is_eating != true) {
 		for (row = 0; row < entity.rect.height; row++) {
 			for (col = 0; col < entity.rect.width; col++) {
 
@@ -139,10 +178,6 @@ void TAM_move(int16_t dx, int16_t dy)
 
 void TAM_update(void) 
 {
-	if (entity.is_eating != 0) {
-		entity.is_eating = (entity.is_eating == 2) ? 1 : 0;
-	}
-
 	entity.curr_sprite = (entity.curr_sprite + 1) % SPRITE_NUM;
 	entity.sprite = &(sprite_scale[entity.curr_sprite]);
 }

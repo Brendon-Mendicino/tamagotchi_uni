@@ -5,95 +5,85 @@
 #include "../timer/timer.h"
 
 
-char tt1[] = {'E', 'T'};
-char tt2[] = {'I', 'A', 'N', 'M'};
-char tt3[] = {'S', 'U', 'R', 'W', 'D', 'K', 'G', 'O'};
-char tt4[] = {'H', 'V', 'F', '?', 'L', '?', 'P', 'J', 'B', 'X', 'C', 'Y', 'Z', 'Q', '?', '?'};
-char tt5[] = {'5', '4', '?', '3', '?', '?', '?', '2', '?', '?', '?', '?', '?', '?', '?', '1', '6', '?', '?', '?', '?', '?', '?', '?', '7', '?', '?', '?', '8', '?', '9', '0'};
-
-char *transTable[5] = {
-	tt1,
-	tt2,
-	tt3,
-	tt4,
-	tt5
-};
-
+static uint8_t debounce_timer = 0;
 
 
 /**
- * @brief  Function that initializes Buttons
+ * @brief  Function that initializes all Buttons
  */
 void BUTTON_init(void) {
 
-  LPC_PINCON->PINSEL4    |= (1 << 20);		 /* External interrupt 0 pin selection */
-  LPC_GPIO2->FIODIR      &= ~(1 << 10);    /* PORT2.10 defined as input          */
+	LPC_PINCON->PINSEL4    |= (1 << 20);		 /* External interrupt 0 pin selection */
+	LPC_GPIO2->FIODIR      &= ~(1 << 10);    /* PORT2.10 defined as input          */
 
-  LPC_PINCON->PINSEL4    |= (1 << 22);     /* External interrupt 0 pin selection */
-  LPC_GPIO2->FIODIR      &= ~(1 << 11);    /* PORT2.11 defined as input          */
-  
-  LPC_PINCON->PINSEL4    |= (1 << 24);     /* External interrupt 0 pin selection */
-  LPC_GPIO2->FIODIR      &= ~(1 << 12);    /* PORT2.12 defined as input          */
+	LPC_PINCON->PINSEL4    |= (1 << 22);     /* External interrupt 0 pin selection */
+	LPC_GPIO2->FIODIR      &= ~(1 << 11);    /* PORT2.11 defined as input          */	  
+	LPC_PINCON->PINSEL4    |= (1 << 24);     /* External interrupt 0 pin selection */
+	LPC_GPIO2->FIODIR      &= ~(1 << 12);    /* PORT2.12 defined as input          */
 
-  LPC_SC->EXTMODE = 0x7;
+	LPC_SC->EXTMODE = 0x7;
 
-  NVIC_EnableIRQ(EINT2_IRQn);              /* enable irq in nvic                 */
+	NVIC_EnableIRQ(EINT2_IRQn);              /* enable irq in nvic                 */
 	NVIC_SetPriority(EINT2_IRQn, 1);				 /* priority, the lower the better     */
-  NVIC_EnableIRQ(EINT1_IRQn);              /* enable irq in nvic                 */
+	NVIC_EnableIRQ(EINT1_IRQn);              /* enable irq in nvic                 */
 	NVIC_SetPriority(EINT1_IRQn, 2);				 
-  NVIC_EnableIRQ(EINT0_IRQn);              /* enable irq in nvic                 */
+	NVIC_EnableIRQ(EINT0_IRQn);              /* enable irq in nvic                 */
 	NVIC_SetPriority(EINT0_IRQn, 3);				 /* decreasing priority	from EINT2->0	 */
 }
 
 
-bool int0_callback(void) 
+void int0_callable(void) 
 {
 	if ((LPC_GPIO2->FIOPIN & (1 << 10)) != 0) { /* checks if p2.10 is released					*/
 		LPC_PINCON->PINSEL4 |= (0x01 << 20);			/* enable p2.10 EINT0 									*/
-		return true;
+		TIMER_match_reg(debounce_timer, MATCH0, CONTROL_NULL, 0, false);
 	}
-	return false;
 }
 
-bool key1_callback(void) 
+void key1_callable(void) 
 {
 	if ((LPC_GPIO2->FIOPIN & (1 << 11)) != 0) { /* checks if p2.11 is released					*/
 		LPC_PINCON->PINSEL4 |= (0x01 << 22);			/* enable p2.11 EINT1 									*/
-		return true;
+		TIMER_match_reg(debounce_timer, MATCH1, CONTROL_NULL, 0, false);
 	}
-	return false;
 }
 
-bool key2_callback(void) 
+void key2_callable(void) 
 {
 	if ((LPC_GPIO2->FIOPIN & (1 << 12)) != 0) { /* checks if p2.12 is released					*/
 		LPC_PINCON->PINSEL4 |= (0x01 << 24);			/* enable p2.10 EINT2 									*/
-		return true;
+		TIMER_match_reg(debounce_timer, MATCH2, CONTROL_NULL, 0, false);
 	}
-	return false;
 }
 
-void enable_debouncing(uint8_t button)
+/**
+ * @brief enables doubouncing on a specific button, considering a timer. Once a timer is used for a button all
+ * other button should be set on the same timer.
+ * 
+ * @param timer timer to set the dobouncing
+ * @param button button to do a debouncing on
+ */
+void BUTTON_enable_debouncing(uint8_t timer, uint8_t button)
 {
 	uint8_t match;
-	callback_t callback;
+	callable_t callable;
 	uint32_t milliseconds = 50;
 	uint32_t time_interval = milliseconds * TIMER_CLK / 1000;
 
 	switch (button) {
 		case INT0:
 			LPC_PINCON->PINSEL4 &= ~(0x03 << 20);		/* reset p2.10 */
-			callback = int0_callback;
+			callable = int0_callable;
 			match = MATCH0;
 			break;
 		case KEY1:
 			LPC_PINCON->PINSEL4 &= ~(0x03 << 22); 	/* reset p2.11 */
-			callback = key1_callback;
+			callable = key1_callable;
 			match = MATCH1;
 			break;
 		case KEY2:
 			LPC_PINCON->PINSEL4 &= ~(0x03 << 24); 	/* reset p2.12 */
-			callback = key2_callback;
+			callable = key2_callable;
 			match = MATCH2;
 			break;
 		default:
@@ -101,59 +91,28 @@ void enable_debouncing(uint8_t button)
 			return;
 	}
 	
-	init_match_reg(TIMER0, match, CONTROL_INTERRUPT, time_interval, true);
-	set_callback(TIMER0, match, callback);
+	debounce_timer = timer;
+	TIMER_match_reg(timer, match, CONTROL_INTERRUPT, time_interval, true);
+	TIMER_set_callable(timer, match, callable);
 }
 
 
-void disable_debouncing(uint8_t button)
+void BUTTON_disable_debouncing(uint8_t timer, uint8_t button)
 {
-	
-}
-
-
-/**
- *
- */
-char getCharFromMorse(char num, char len) {
-	return transTable[len-1][num];
-}
-
-void convertArray(char *array)
-{
-	volatile char result[MAX_LEN];
-	int i;
-	int resLen;
-	char len = 0;
-	char num = 0;
-	int readSymb = 0;
-	for (i = 0, resLen = 0; i < MAX_LEN; i++, len++) {
-		if (array[i] == 2) {
-			result[resLen++] = getCharFromMorse(num, len-1);
-			LED_OnNum(++readSymb);
-			
-			len = 0;
-			num = 0;
-			continue;
-		}
-		
-		if (array[i] == 3) {
-			result[resLen++] = getCharFromMorse(num, len-1);
-			LED_OnNum(++readSymb);
-			result[resLen++] = ' ';
-			
-			len = 0;
-			num = 0;
-			continue;
-		}
-		
-		if (array[i] == 4) {
-			result[resLen++] = getCharFromMorse(num, len-1);
-			LED_OnNum(++readSymb);
-			break;
-		}
-
-		num = (num << 1);
-		num |= array[i];
+	uint8_t mr;
+	switch (button) {
+	case INT0:
+		mr = MATCH0;
+		break;
+	case KEY1:
+		mr = MATCH1;
+		break;
+	case KEY2:
+		mr = MATCH2;
+		break;
+	default:
+		return;
 	}
+
+	TIMER_match_reg(timer, mr, CONTROL_NULL, 0, false);
 }
